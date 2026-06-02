@@ -63,7 +63,7 @@ Die Scripts **müssen** in dieser Reihenfolge geladen werden:
 <script src="../js/main.js"></script>
 ```
 
-> ⚠️ **Wichtig:** Die Reihenfolge ist entscheidend, da später geladene Module von früheren abhängen.
+>  **Wichtig:** Die Reihenfolge ist entscheidend, da später geladene Module von früheren abhängen.
 
 ## Erweiterung neuer Module
 

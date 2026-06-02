@@ -1,0 +1,193 @@
+Seite 1
+Projektspezifikation: Webshop
+I. Allgemein
+a. Die Angabe lässt Ihnen gewisse Gestaltungs- und
+Implementierungsfreiheiten. Die Branche des Webshops kann frei
+gewählt werden (Möbel, Veranstaltungstickets, Elektronik, …).
+Folgende Basis-Features sollen abgebildet werden:
+i. Präsentation und Verwaltung von Produkten
+ii. Warenkorbfunktionalität
+iii. Kundenverwaltung
+iv. Bestellungen & Rechnungen
+v. Gutscheine verwalten und einlösen
+vi. Administrationsbereich
+b. Grün markierte Abschnitte bringen Bonuspunkte
+c. Die Umsetzung des Projekts, wird sämtliche Inhalte der
+Lehrveranstaltungen Webtechnologien und Web Scripting beinhalten:
+i. HTML, CSS, Bootstrap
+ii. PHP, Sessions, Cookies
+iii. Fileuploads, Datenbanken
+iv. JavaScript, jQuery, AJAX
+d. Achten Sie auf einen homogenen Prozessablauf innerhalb des
+Webshops (klarer Kaufprozess/Bedienung, keine „Dead-Ends“, …)
+II. Projektstruktur und Grundlayout
+a. Backend und Frontend müssen klar voneinander getrennt sein!
+i. Daten zwischen Backend und Frontend müssen als JSON
+ausgetauscht werden.
+ii. Es muss möglich sein, ein anderes/zusätzliches Frontend zu
+demselben Backend zu entwickeln (z.B. Android / iOS /
+Windows-App)
+b. Organisieren Sie das Projekt in einer übersichtlichen Ordnerstruktur.
+c. Für die Umsetzung wird ein objektorientierter Ansatz empfohlen
+(Verwendung von Klassen für User, Produkte, etc.
+d. Legen Sie eine Datenbank (DB) sowie eine entsprechende DB-ServiceKlasse an, welche zentral die Zugriffe auf die DB implementiert.
+
+
+III. Abgabemodalitäten
+a. Das Projekt ist vollständig als zip/rar File im Moodle hochzuladen
+inklusive einer Kopie der MySQL-Datenbank
+b. Kommentieren Sie Abläufe/Funktionen im Code
+c. Falls weitere Konfigurationsschritte zur Inbetriebnahme d. Applikation
+nötig sind, legen Sie eine readme.txt-Datei bei.
+Seite 4
+Anforderungskatalog
+Gast-User
+Gäste (nicht registrierte User) finden folgende Funktionalitäten vor:
+- Registrierung/Login
+- Produkte ansehen
+- Produkte in den Warenkorb legen
+- Produkte suchen
+- Warenkorb bearbeiten
+1) Users-Registrierung
+a. Jeder User kann ein neues Benutzerkonto für den Webshop anlegen
+b. Beim Erfassen der Users sind folgende Daten anzugeben:
+i. Anrede
+ii. Vorname
+iii. Nachname
+iv. Adresse
+v. PLZ
+vi. Ort
+vii. Emailadresse
+viii. Benutzername
+ix. Passwort
+x. Zahlungsinformationen
+c. Überprüfen Sie alle Parameter sowohl mittels HTML5/JavaScriptValidierung also auch serverseitig auf Vollständigkeit und
+Richtigkeit. Ergänzen Sie etwaige HTML5-Unvollständigkeiten. Das
+Passwort muss immer 2x angegeben werden und die Werte werden
+auf Übereinstimmung geprüft. Erst wenn alle Daten validiert
+wurden, wird der neue User in der DB angelegt.
+d. User-Passwörter werden verschlüsselt in der Datenbank abgelegt.
+e. Legen Sie manuell in der Datenbank einen weiteren User an, der als
+Administrator gekennzeichnet wird. Die Rechte des Administrators
+unterscheiden sich von herkömmlichen Usern.
+f. Wenn der User angelegt wurde, kann die Login-Funktion genutzt
+werden:
+Seite 5
+2 User-Login
+a. Erstellen Sie ein Login-Formular welches Usernamen/E-MailAdresse und Passwort entgegennimmt
+b. Weiters enthält das Formular eine Checkbox mit der Option „Login
+merken“
+c. Überprüfen Sie die Werte gegen die Datenbank. Nur wenn es einen
+User in der DB mit diesen Daten gibt, soll der Login erfolgreich sein.
+Der Login-Status ist permanent auf der Seite sichtbar. Eingeloggte
+User sehen einen Logout-Button.
+d. Auf Basis des eingeloggten Users, werden unterschiedliche Menüs
+generiert.
+i. Ist kein User eingeloggt, sind nur die Bereiche „Home“,
+„Produkte“ und „Warenkorb“ zu sehen
+ii. Ein eingeloggter User sieht die Einträge „Home“, „Produkte“,
+„Mein Konto“, „Warenkorb“
+iii. Ein Administrator sieht „Home“, „Produkte bearbeiten“,
+„Kunden bearbeiten“ und „Gutscheine verwalten“
+e. Falls der User „Login merken“ aktiviert hat, wird auch ein Cookie
+angelegt, welches den User automatisch einloggt, wenn es gesetzt
+ist.
+f. Achten Sie darauf, dass beim Schließen des Browsers auch die
+Session gelöscht wird und der User ausgeloggt ist, es sei denn, es
+wurde ein Cookie gesetzt, um sich den Login zu merken, dann wird
+der User beim erneuten Öffnen der Web-Adresse als eingeloggt
+angezeigt.
+3 Produkte ansehen
+a. Im Bereich „Produkte“ werden Produkte angezeigt sowie Kategorien.
+Die erste Kategorie wird standardmäßig ausgewählt und es werden die
+Seite 6
+aktuellen Produkte dieser Kategorie angezeigt. Wechselt der User die
+Kategorie, werden neue Produkte geladen. Jedes Produkt wird
+angezeigt mit Name, Bild, Preis und Bewertung.
+b. Bei jedem Produkt gibt es die Option via Link „In den Warenkorb
+legen“. Klickt der User auf den Link, wird das gewählte Produkt im
+Warenkorb abgelegt.
+c. Das Ablegen von Produkten im Warenkorb soll via AJAX erfolgen und
+ohne Page-Reload funktionieren.
+d. Neben einem kleinen Warenkorbsymbol auf der Seite wird die aktuelle
+Anzahl der sich gerade im Warenkorb befindlichen Produkte angezeigt
+– diese Zahl wird ebenfalls via AJAX aktualisiert. Beim Stöbern durch
+die Produkte und beim „Einkaufen“ soll der User nie die Seite verlassen
+müssen.
+e. Produkte können auch via Drag’n’Drop auf das Warenkorb-Symbol
+gezogen werden, um darin abgelegt zu werden.
+f. Navigiert der User in den Bereich „Warenkorb“ werden alle Produkte
+als Liste angezeigt, welche im Warenkorb abgelegt wurden sowie der
+Gesamtpreis aller Produkte. Jedes Produkt kann wieder aus dem
+Warenkorb entfernt oder mehrfach abgelegt (Anzahl erhöhen) werden.
+4 Produktsuche (mit Continuous Search Filter)
+a. Fügen Sie der Produktansicht ein Suchfeld hinzu. Tippt der User
+einen Buchstaben ein, beginnt bereits die Suche:
+b. Basierend auf der Eingabe werden Produkte aus der Datenbank
+geholt und die Ergebnisse angezeigt, ohne einen Reload der Seite.
+Seite 7
+Customer (registrierter User)
+Registrierte User (Customer) finden zusätzlich folgende Funktionalitäten vor:
+- Logout
+- Produkte bestellen (kein Bezahlvorgang!)
+- Bestellungen und Rechnungen einsehen
+- Eigene Daten bearbeiten
+5 Produkte bestellen
+a. Im Bereich Warenkorb kann der User, sofern Produkte im
+Warenkorb sind, die Produkte bestellen.
+b. Bestellungen sind nur möglich, wenn der User angemeldet ist. Nach
+dem Login, sollen immer noch alle Daten im Warenkorb sichtbar
+sein.
+c. Bei der Bestellung muss der Kunde eine seiner
+Zahlungsmöglichkeiten auswählen oder er bezahlt mittels
+Gutschein. Der Gutscheinwert wird vom Gesamtbetrag abgezogen
+bzw. bleibt der Restwert bei nur teilweiser Einlösung erhalten.
+d. Sind Daten unvollständig, kann die Bestellung nicht abgeschlossen
+werden und die Produkte verbleiben im Warenkorb.
+e. Die Bestellung wird in der DB abgelegt, sodass jederzeit
+nachvollziehbar ist, welcher Kunde welche Produkte bestellt hat. Ein
+Kunde solle jederzeit die Details zu seinen Bestellungen einsehen
+können.
+6 Kund*innenkonto einsehen
+a. Im Bereich „Mein Konto“ kann der User seine Daten einsehen und
+bearbeiten (Stammdaten bearbeiten, neue Zahlungsmöglichkeiten
+hinzufügen).
+b. Achten Sie drauf, dass sensible Informationen nicht vollständig
+angezeigt werden und beim Ändern von Daten, das Passwort
+verlangt wird.
+c. Sämtliche Bestellungen des Users werden nach Datum aufwärts
+sortiert angezeigt. Zu jeder Bestellung können die Details
+eingesehen werden. Der User kann zu Jeder Bestellung eine
+Rechnung drucken. In diesem Fall wird eine Rechnungsnummer
+Seite 8
+generiert und die Rechnung wird mit Positionen, Datum und
+Anschrift in einem neuen Fenster angezeigt.
+Seite 9
+Administrator*in
+Administrator*innen des Webshops finden folgenden Funktionalitäten vor:
+- Login & Logout
+- Produkte anlegen
+- Produkte bearbeiten
+- Kund*innen (Customer) verwalten
+- Gutscheine verwalten
+1 Produktverwaltung
+a. Im Bereich „Produkte bearbeiten“ kann der Administrator sowohl
+neue Produkte anlegen (zumindest mit Name, Beschreibung,
+Bewertung, Preis, Foto) als auch Produkte bearbeiten und löschen.
+b. Für jedes Produkt kann ein Produktfoto hochgeladen werden.
+2 Kunden verwalten
+a. Der Admin hat die Möglichkeit, alle existierenden Kunden
+aufzulisten und deren Bestelldetails einzusehen. Jeder Kunde kann
+vom Admin deaktiviert werden. Somit soll kein Login mehr möglich
+sein und es sollen auch keine Einkäufe mehr mit diesem Account
+getätigt werden können.
+b. Einzelne Produkte können aus der Bestellung des Kunden entfernt
+werden und sind auch für den Kunden nicht mehr sichtbar.
+3 Gutscheine verwalten
+a. Weiters gibt es für den Admin die Option, Gutscheincodes zu
+erstellen. Jeder Gutscheincode wird zufällig generiert und besteht
+aus einem 5-stelligen alphanumerischen Code. Je Gutschein werden
+ein Geldwert sowie ein Gültigkeits- / bzw. Ablaufdatum angelegt.
+b. Der Admin hat eine Übersicht über alle Gutscheincodes, deren
+Datum sowie Wert. Bereits eingelöste bzw. abgelaufene Gutscheine
+werden ebenfalls gelistet, jedoch entsprechend markiert.
