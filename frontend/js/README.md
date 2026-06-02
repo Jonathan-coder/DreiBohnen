@@ -57,6 +57,7 @@ Zentrale Initialisierungsdatei - bindet alles zusammen.
 Die Scripts **müssen** in dieser Reihenfolge geladen werden:
 
 ```html
+<script src="../js/products.js"></script>
 <script src="../js/utils.js"></script>
 <script src="../js/components.js"></script>
 <script src="../js/products.js"></script>

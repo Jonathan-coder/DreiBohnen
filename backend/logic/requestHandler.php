@@ -149,4 +149,69 @@ if ($action === 'getCategories') {
     }
 
     respond(['authenticated' => false]);
+
+} elseif ($action === 'addToCart') {
+    $productId = intval($_POST['productId'] ?? 0);
+    if ($productId <= 0) {
+        respond(['success' => false, 'message' => 'Ungültige Produkt-ID.'], 400);
+    }
+    
+    // Warenkorb in Session initialisieren falls nicht vorhanden
+    if (!isset($_SESSION['cart'])) {
+        $_SESSION['cart'] = [];
+    }
+    
+    // Menge erhöhen oder Produkt neu hinzufügen
+    if (isset($_SESSION['cart'][$productId])) {
+        $_SESSION['cart'][$productId]++;
+    } else {
+        $_SESSION['cart'][$productId] = 1;
+    }
+    
+    // Gesamtzahl der Artikel im Warenkorb berechnen
+    $totalCount = array_sum($_SESSION['cart']);
+    respond(['success' => true, 'message' => 'Produkt hinzugefügt.', 'cartCount' => $totalCount]);
+
+} elseif ($action === 'getCart') {
+    if (!isset($_SESSION['cart']) || empty($_SESSION['cart'])) {
+        respond(['items' => [], 'totalPrice' => 0.00]);
+    }
+    
+    $cartItems = [];
+    $totalPrice = 0.00;
+    
+    foreach ($_SESSION['cart'] as $productId => $quantity) {
+        $product = $dh->getProductById($productId);
+        if ($product) {
+            $product['quantity'] = $quantity;
+            $product['subtotal'] = floatval($product['price']) * $quantity;
+            $totalPrice += $product['subtotal'];
+            $cartItems[] = $product;
+        }
+    }
+    respond(['items' => $cartItems, 'totalPrice' => $totalPrice]);
+
+} elseif ($action === 'updateCartQuantity') {
+    $productId = intval($_POST['productId'] ?? 0);
+    $quantity = intval($_POST['quantity'] ?? 0);
+    
+    if ($productId <= 0 || $quantity < 0) {
+        respond(['success' => false, 'message' => 'Ungültige Daten.'], 400);
+    }
+    
+    if ($quantity === 0) {
+        unset($_SESSION['cart'][$productId]);
+    } else {
+        $_SESSION['cart'][$productId] = $quantity;
+    }
+    
+    $totalCount = array_sum($_SESSION['cart']);
+    respond(['success' => true, 'cartCount' => $totalCount]);
+
+} elseif ($action === 'getCartCount') {
+    $totalCount = isset($_SESSION['cart']) ? array_sum($_SESSION['cart']) : 0;
+    respond(['cartCount' => $totalCount]);
+} elseif ($action === 'searchProducts') {
+    $query = trim($_GET['query'] ?? '');
+    respond($dh->searchProducts($query));
 }

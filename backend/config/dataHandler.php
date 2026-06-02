@@ -72,4 +72,21 @@ class DataHandler {
         $stmt->bind_param("i", $userId);
         return $stmt->execute();
     }
+
+    public function getProductById($productId) {
+    global $db;
+    $stmt = $db->prepare("SELECT * FROM products WHERE id = ?");
+    $stmt->bind_param("i", $productId);
+    $stmt->execute();
+    return $stmt->get_result()->fetch_assoc();
+    }
+
+    public function searchProducts($query) {
+    global $db;
+    $searchTerm = "%" . $query . "%";
+    $stmt = $db->prepare("SELECT * FROM products WHERE name LIKE ? OR description LIKE ?");
+    $stmt->bind_param("ss", $searchTerm, $searchTerm);
+    $stmt->execute();
+    return $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
+}
 }
